@@ -152,6 +152,7 @@ Run Ganache follow the steps:
 To run truffle tests:
 
 `truffle test ./test/flightSurety.js`
+
 `truffle test ./test/oracles.js`
 
 To use the dapp:
