@@ -122,12 +122,11 @@ nvm use 10.12.0
 
 To install all necessary dependencies, run:
 `npm install` from the root folder of this project.
+And `npm audit fix`
 
 Update or install your truffle:
 `npm install truffle -g`
 
-To build the project, run:
-`truffle compile`.
 
 #### 3.1.4 Software
 
@@ -148,6 +147,9 @@ Run Ganache follow the steps:
 - Then click on `SAVE WORKSPACE` button.
 
 ## 4. Develop Client
+
+To build the project, run:
+`truffle compile`.
 
 To run truffle tests:
 
