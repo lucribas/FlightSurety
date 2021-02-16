@@ -4,14 +4,14 @@ const fs = require('fs');
 
 module.exports = function (deployer) {
 
-	let firstAirline = '0xf17f52151EbEF6C7334FAD080c5704D77216b732';
+	let firstAirline = '0x49856BBf9bd3864BAC5c99602Cd35DD88dE654eB';
 	deployer.deploy(FlightSuretyData)
 		.then(() => {
 			return deployer.deploy(FlightSuretyApp, FlightSuretyData.address)
 				.then(() => {
 					let config = {
 						localhost: {
-							url: 'http://localhost:8545',
+							url: 'http://localhost:9545',
 							dataAddress: FlightSuretyData.address,
 							appAddress: FlightSuretyApp.address
 						}

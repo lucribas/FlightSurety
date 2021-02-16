@@ -9,7 +9,7 @@ import './flightsurety.css';
 	let result = null;
 	let airlines = null;
 	let flightName = null;
-	let depature = null;
+	let departure = null;
 
 
 	let code_meaning = {
@@ -73,18 +73,18 @@ import './flightsurety.css';
 		// User-submitted transaction
 		DOM.elid('submit-oracle').addEventListener('click', () => {
 			let flight = DOM.elid('flight-number').value;                // Get fight number
-			let depatureDate = DOM.elid('depature-date').value;          // Get depature date
+			let departureDate = DOM.elid('departure-date').value;          // Get departure date
 
 			// Write transaction
-			contract.fetchFlightStatus(flight, depatureDate, (error, result) => {
+			contract.fetchFlightStatus(flight, departureDate, (error, result) => {
 				airlines = result.airline;
-				depature = result.timestamp;
+				departure = result.timestamp;
 				flightName = result.flight;
 
 				DOM.elid("table-report").style.display = "none";
 				DOM.elid("withdrawn").style.display = "none";
 
-				display('Oracles', 'Trigger oracles', [{ label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp, date_: depatureDate }], "display-flight", "");
+				display('Oracles', 'Trigger oracles', [{ label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp, date_: departureDate }], "display-flight", "");
 			});
 		});
 
@@ -97,7 +97,7 @@ import './flightsurety.css';
 			sleep(500).then(() => {
 				let airline = airlines;
 				let flight = flightName;
-				let timestamps = depature;
+				let timestamps = departure;
 				let eventIndex_ = DOM.elid('holdIndex').innerHTML;
 
 				contract.submitOracleResponse(parseInt(eventIndex_), airline, flight, timestamps, (error, result) => {
@@ -144,7 +144,7 @@ import './flightsurety.css';
 
 			contract.buy(price, (error, result) => {
 				console.log("Insurance purchased with", price);
-				display('Oracles', 'Trigger oracles', [{ label: 'Assurance Detail', error: error, value: "Flight Name: " + fname + " | Depature Date: " + fdate + " | Assurance Paid: " + price + " ether" + " | Paid on Delay: " + price * 1.5 + " ether" }], "display-flight", "display-detail");
+				display('Oracles', 'Trigger oracles', [{ label: 'Assurance Detail', error: error, value: "Flight Name: " + fname + " | Departure Date: " + fdate + " | Assurance Paid: " + price + " ether" + " | Paid on Delay: " + price * 1.5 + " ether" }], "display-flight", "display-detail");
 
 
 
@@ -187,7 +187,7 @@ function display(title, description, results, id, cls) {
 		} else
 			row.appendChild(DOM.div({ className: 'col-sm-3 field-value' }, result.error ? String(result.error) : String(result.value)));
 		if (id.toString() == "display-flight" && cls.toString() == "") {
-			let b = DOM.button({ className: 'col-sm-2 field btn btn-primary buy-insurance' }, "View Insurance Policy");
+			let b = DOM.button({ className: 'col-sm-2 field btn btn-primary buy-insurance' }, "Purchase Insurance");
 			b.setAttribute("data-toggle", "modal");
 			b.setAttribute("data-target", "#myModal");
 			row.appendChild(b);

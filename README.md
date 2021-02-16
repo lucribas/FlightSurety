@@ -13,10 +13,15 @@ Table of Contents:
 			- [3.1.1 Repo](#311-repo)
 			- [3.1.2 Node Version](#312-node-version)
 			- [3.1.3 Packages](#313-packages)
-			- [3.1.4 Software](#314-software)
+			- [3.1.4 GANACHE setup](#314-ganache-setup)
 	- [4. Develop Client](#4-develop-client)
 	- [5. Develop Server](#5-develop-server)
-	- [6. Deploy](#6-deploy)
+	- [6. Test your dapp](#6-test-your-dapp)
+		- [6.1 Submit a Flight to the Oracles](#61-submit-a-flight-to-the-oracles)
+		- [6.2 Purchase insurance](#62-purchase-insurance)
+		- [6.2.1 Example without payout](#621-example-without-payout)
+		- [6.2.2 Example without with payout](#622-example-without-with-payout)
+	- [7. Deploy](#7-deploy)
 	- [7. Resources](#7-resources)
 
 # FlightSurety
@@ -43,20 +48,20 @@ There are four main requirements for the project:
 
 | CRITERIA | MEETS SPECIFICATIONS | Status |
 |:-------:|:-------|:--------|
-| Smart Contract Separation | Smart Contract code is separated into multiple contracts:<br> 1) FlightSuretyData.sol for data persistence <br> 2) FlightSuretyApp.sol for app logic and oracles code | |
-| Dapp Created and Used for Contract Calls |A Dapp client has been created and is used for triggering contract calls. Client can be launched with “npm run dapp” and is available at http://localhost:8000<br>Specific contract calls:<br>1) Passenger can purchase insurance for flight<br>2) Trigger contract to request flight status update | |
-| Oracle Server Application | A server app has been created for simulating oracle behavior. Server can be launched with “npm run server” |
-| Operational status control is implemented in contracts | Students has implemented operational status control. | |
-| Fail Fast Contract | Contract functions “fail fast” by having a majority of “require()” calls at the beginning of function body | |
+| Smart Contract Separation | Smart Contract code is separated into multiple contracts:<br> 1) FlightSuretyData.sol for data persistence <br> 2) FlightSuretyApp.sol for app logic and oracles code | :ok_hand: |
+| Dapp Created and Used for Contract Calls |A Dapp client has been created and is used for triggering contract calls. Client can be launched with “npm run dapp” and is available at http://localhost:8000<br>Specific contract calls:<br>1) Passenger can purchase insurance for flight<br>2) Trigger contract to request flight status update | :ok_hand: |
+| Oracle Server Application | A server app has been created for simulating oracle behavior. Server can be launched with “npm run server” | :ok_hand: |
+| Operational status control is implemented in contracts | Students has implemented operational status control. | :ok_hand: |
+| Fail Fast Contract | Contract functions “fail fast” by having a majority of “require()” calls at the beginning of function body | :ok_hand: |
 
 #### 2.2 Airlines
 
 | CRITERIA | MEETS SPECIFICATIONS | Status |
 |:-------:|:-------|:--------|
-| Airline Contract Initialization | First airline is registered when contract is deployed. | |
-| Multiparty Consensus | Only existing airline may register a new airline until there are at least four airlines registered* | |
-| Multiparty Consensus | Registration of fifth and subsequent airlines requires multi-party consensus of 50% of registered airlines* | |
-| Airline Ante | Airline can be registered, but does not participate in contract until it submits funding of 10 ether | |
+| Airline Contract Initialization | First airline is registered when contract is deployed. | :ok_hand: |
+| Multiparty Consensus | Only existing airline may register a new airline until there are at least four airlines registered* | :ok_hand: |
+| Multiparty Consensus | Registration of fifth and subsequent airlines requires multi-party consensus of 50% of registered airlines* | :ok_hand: |
+| Airline Ante | Airline can be registered, but does not participate in contract until it submits funding of 10 ether | :ok_hand: |
 
 \* Demonstrated either with Truffle test or by making call from client Dapp
 
@@ -65,11 +70,11 @@ There are four main requirements for the project:
 
 | CRITERIA | MEETS SPECIFICATIONS | Status |
 |:-------:|:-------|:--------|
-| Passenger Airline Choice| Passengers can choose from a fixed list of flight numbers and departure that are defined in the Dapp client | |
-| Passenger Payment | Passengers may pay up to 1 ether for purchasing flight insurance. | |
-| Passenger Repayment | If flight is delayed due to airline fault, passenger receives credit of 1.5X the amount they paid | |
-| Passenger Withdraw | Passenger can withdraw any funds owed to them as a result of receiving credit for insurance payout | |
-| Insurance Payouts | Insurance payouts are not sent directly to passenger’s wallet | |
+| Passenger Airline Choice| Passengers can choose from a fixed list of flight numbers and departure that are defined in the Dapp client | :ok_hand: |
+| Passenger Payment | Passengers may pay up to 1 ether for purchasing flight insurance. | :ok_hand: |
+| Passenger Repayment | If flight is delayed due to airline fault, passenger receives credit of 1.5X the amount they paid | :ok_hand: |
+| Passenger Withdraw | Passenger can withdraw any funds owed to them as a result of receiving credit for insurance payout | :ok_hand: |
+| Insurance Payouts | Insurance payouts are not sent directly to passenger’s wallet | :ok_hand: |
 
 
 
@@ -77,10 +82,10 @@ There are four main requirements for the project:
 
 | CRITERIA | MEETS SPECIFICATIONS | Status |
 |:-------:|:-------|:--------|
-| Functioning Oracle | Oracle functionality is implemented in the server app. | |
-| Oracle Initialization | Upon startup, 20+ oracles are registered and their assigned indexes are persisted in memory | |
-| Oracle Updates | Update flight status requests from client Dapp result in OracleRequest event emitted by Smart Contract that is captured by server (displays on console and handled in code) | |
-| Oracle Functionality | Server will loop through all registered oracles, identify those oracles for which the OracleRequest event applies, and respond by calling into FlightSuretyApp contract with random status code of Unknown (0), On Time (10) or Late Airline (20), Late Weather (30), Late Technical (40), or Late Other (50) | |
+| Functioning Oracle | Oracle functionality is implemented in the server app. | :ok_hand: |
+| Oracle Initialization | Upon startup, 20+ oracles are registered and their assigned indexes are persisted in memory | :ok_hand: |
+| Oracle Updates | Update flight status requests from client Dapp result in OracleRequest event emitted by Smart Contract that is captured by server (displays on console and handled in code) | :ok_hand: |
+| Oracle Functionality | Server will loop through all registered oracles, identify those oracles for which the OracleRequest event applies, and respond by calling into FlightSuretyApp contract with random status code of Unknown (0), On Time (10) or Late Airline (20), Late Weather (30), Late Technical (40), or Late Other (50) | :ok_hand: |
 
 
 
@@ -128,7 +133,7 @@ Update or install your truffle:
 `npm install truffle -g`
 
 
-#### 3.1.4 Software
+#### 3.1.4 GANACHE setup
 
 Download and install Ganache v2.5.4: <https://www.trufflesuite.com/ganache>
 
@@ -138,40 +143,90 @@ Run Ganache follow the steps:
 	- enter Workspace name: `FligthSurety`
 	- click on `ADD PROJECT` and add the `truffle.js` file.
 - on `Server` Tab:
-	- change `Port number` to `8545`.
+	- change `Port number` to `9545`.
 - on `Accounts and Keys` Tab:
 	- change `TOTAL ACCOUNTS TO GENERATE` to 40
-	- change the `Mnemonic` to `candy maple cake sugar pudding cream honey rich smooth crumble sweet treat`
+	- change the `Mnemonic` to `depart quit survey faint message service talk spider urge dynamic jewel fancy`
 - on `Chain` Tab:
 	- change the `GAS LIMIT` to `67219750`
 - Then click on `SAVE WORKSPACE` button.
 
+Open your saved workspace:
+
+![](docs/g1.png)
+
 ## 4. Develop Client
 
 To build the project, run:
-`truffle compile`.
+`truffle compile`
+
+![](docs/p1.png)
 
 To run truffle tests:
 
 `truffle test ./test/flightSurety.js`
 
+![](docs/p2.png)
+
 `truffle test ./test/oracles.js`
+
+![](docs/p3.png)
 
 To use the dapp:
 
-`truffle migrate`
+`truffle migrate --reset`
+
+![](docs/p4.png)
+
+Check deployed smart contracts:
+
+![](docs/c1.png)
+
 `npm run dapp`
+
+![](docs/p5.png)
 
 To view dapp:
 
 `http://localhost:8000`
 
+
 ## 5. Develop Server
 
+Open new terminal and run:
 `npm run server`
-`truffle test ./test/oracles.js`
 
-## 6. Deploy
+![](docs/p7.png)
+
+
+## 6. Test your dapp
+
+### 6.1 Submit a Flight to the Oracles
+
+Open your browser in `http://localhost:8000`
+
+Select one Flight and a Departure date:
+![](docs/w1.png)
+
+### 6.2 Purchase insurance
+
+![](docs/w3.png)
+
+### 6.2.1 Example without payout
+
+![](docs/w4.png)
+
+![](docs/w5.png)
+
+### 6.2.2 Example without with payout
+
+![](docs/w6.png)
+
+![](docs/w7.png)
+
+![](docs/w8.png)
+
+## 7. Deploy
 
 To build dapp for prod:
 `npm run dapp:prod`

@@ -66,7 +66,7 @@ input[type=number] {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-#depature-date{
+#departure-date{
     appearance: none;
     -webkit-appearance: none;
     color: #95a5a6;
